@@ -3,7 +3,7 @@ import { Route, withRouter } from "react-router-dom";
 
 import routerService from "../../Router";
 import Header from "./Header";
-import Sidebar from "./sidebar";
+import Sidebar from "./Sidebar";
 
 const DefaultLayout =(props)=> {
     const { match } = props;
