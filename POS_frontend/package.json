@@ -38,6 +38,9 @@
   "files": [
     "js/**/*.js"
   ],
+ "engines": {
+    "node": "16.20.2"
+  },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
