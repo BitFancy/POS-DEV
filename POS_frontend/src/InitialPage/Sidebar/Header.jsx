@@ -19,12 +19,13 @@ import {
   LogoWhite,
   Avatar1,
 } from "../../EntryFile/imagePath";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
 import TimeClock from "../../MainPage/DateTime/Clock";
 import TimeDate from "../../MainPage/DateTime/Date";
 
 const Header = (props) => {
+  const history = useHistory();
   const [searchBar, SetSearchBar] = useState(false);
   const [toggle, SetToggle] = useState(false);
 
@@ -46,6 +47,11 @@ const Header = (props) => {
 
   let pathname = location.pathname;
 
+  const handleLogoutClicked = () => {
+    window.localStorage.removeItem('token');
+    history.push("/signIn");
+  }
+
   return (
     <>
       <div className="header">
@@ -58,13 +64,13 @@ const Header = (props) => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <Link to="/dream-pos/dashboard" className="logo logo-normal">
+          <Link to="/dream-pos/product/productlist-product" className="logo logo-normal">
             <img src={Logo} alt="" />
           </Link>
-          <Link to="/dream-pos/dashboard" className="logo logo-white">
+          <Link to="/dream-pos/product/productlist-product" className="logo logo-white">
             <img src={LogoWhite} alt="" />
           </Link>
-          <Link to="/dream-pos/dashboard" className="logo-small">
+          <Link to="/dream-pos/product/productlist-product" className="logo-small">
             <img src={SmallLogo} alt="" />
           </Link>
           <Link
@@ -159,10 +165,10 @@ const Header = (props) => {
                     Settings
                   </Link>
                   <hr className="m-0" />
-                  <Link className="dropdown-item logout pb-0" to="/signIn">
+                  <button className="dropdown-item logout pb-0" onClick={handleLogoutClicked}>
                     <img src={Logout} className="me-2" alt="img" />
                     Logout
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>

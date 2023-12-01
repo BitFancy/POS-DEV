@@ -29,11 +29,15 @@ const AddProduct = () => {
     }
     
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         await api.post("/product/add", data)
         .then(res => {
             console.log(res.data);
             alertify.success("Successfully Product Added");
+            setProductName('');
+            setCategory('');
+            setProductType('');
+            setPrice('');
         })
         .catch(err => {
             console.log(err);
@@ -62,7 +66,7 @@ const AddProduct = () => {
                             <h6>Create new Product</h6>
                         </div>
                     </div>
-                    <form onSubmit={handleSubmit}>
+                    <div>
                         <div className="card">
                             <div className="card-body">
                                 <div className="row">
@@ -119,7 +123,7 @@ const AddProduct = () => {
                                         </div>
                                     </div>
                                     <div className="col-lg-12">
-                                        <button type='submit' className="btn btn-submit me-2">
+                                        <button onClick={handleSubmit} className="btn btn-submit me-2">
                                             Submit
                                         </button>
                                         <button className="btn btn-cancel">
@@ -129,7 +133,7 @@ const AddProduct = () => {
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </>

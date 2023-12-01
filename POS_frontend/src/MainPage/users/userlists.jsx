@@ -23,6 +23,8 @@ import api from "../../utils/api";
 const UserLists = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [inputfilter, setInputfilter] = useState(false);
+  const [userList, setUserList] = useState([]);
+
   const options = [
     { id: 1, text: "Disable", text: "Disable" },
     { id: 2, text: "Enable", text: "Enable" },
@@ -46,6 +48,15 @@ const UserLists = () => {
     const fetchData = async () => {
       await api.get("/users/all").then((res) => {
         console.log("user list ----->>  ", res.data);
+        res.data.map((user) => {
+          if(user.role === 1) {
+            user.role = 'Admin'
+          } else {
+            user.role = 'User';
+          }
+          user.createdAt = new Date(user.createdAt).toDateString();
+        })
+        setUserList(res.data);
       });
     }
     fetchData();
@@ -54,7 +65,7 @@ const UserLists = () => {
   const columns = [
     {
       title: "User Name",
-      dataIndex: "name",
+      dataIndex: "userName",
       sorter: (a, b) => a.name.length - b.name.length,
     },
     // {
@@ -69,28 +80,13 @@ const UserLists = () => {
     },
     {
       title: "Role",
-      dataIndex: "Role",
+      dataIndex: "role",
       sorter: (a, b) => a.Role.length - b.Role.length,
     },
     {
       title: "Created On",
-      dataIndex: "On",
+      dataIndex: "createdAt",
       sorter: (a, b) => a.On.length - b.On.length,
-    },
-    {
-      title: "Status",
-      dataIndex: "Status",
-      render: (text, record) => (
-        <>
-          {text === "Active" && (
-            <span className="badges bg-lightgreen">{text}</span>
-          )}
-          {text === "Restricted" && (
-            <span className="badges bg-lightred">{text}</span>
-          )}
-        </>
-      ),
-      sorter: (a, b) => a.Status.length - b.Status.length,
     },
     {
       title: "Action",
@@ -243,7 +239,7 @@ const UserLists = () => {
             </div>
             {/* /Filter */}
             <div className="table-responsive">
-              <Table columns={columns} dataSource={data} />
+              <Table columns={columns} dataSource={userList} />
             </div>
           </div>
         </div>

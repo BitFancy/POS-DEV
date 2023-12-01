@@ -30,31 +30,29 @@ const AddUser = () => {
     { id: 2, text: "User" },
   ]
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if(password!== confirmPassword){
       setPassError('Passwords do not match');
     } else {
       setPassError('');
-      api.post('/users/register', {userName, email, password, role})
-      .then(res => {
-        console.log(res.data);
-        if(res.data === "User already exists"){
-          alertify.warning("User already exists");
-        } else {
-          setUserName('');
-          setEmail('');
-          setPassword('');
-          setConfirmPassword('');
-          setRole('');
-          alertify.success("Successfully User Added");
+      console.log("user info ---------> ",userName, email, password, role);
+      setUserName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      setRole('');
+      try {
+        await api.post('/users/register', {userName, email, password, role})
+        alertify.success("Successfully User Added");
+
+      } catch (error) {
+        if(error.response.status === 400) {
+          alertify.warning("User Already Exists");
         }
-      })
-      .catch(err => {
-        console.log(err);
-       });
+      }
     }
-    }
+  }
   
   return (
     <div className="page-wrapper">

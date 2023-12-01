@@ -391,13 +391,13 @@ const Header = (props) => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <Link to="/dream-pos/dashboard" className="logo logo-normal">
+          <Link to="/dream-pos/product/productlist-product" className="logo logo-normal">
             <img src={Logo} alt="" />
           </Link>
-          <Link to="/dream-pos/dashboard" className="logo logo-white">
+          <Link to="/dream-pos/product/productlist-product" className="logo logo-white">
             <img src={LogoWhite} alt="" />
           </Link>
-          <Link to="/dream-pos/dashboard" className="logo-small">
+          <Link to="/dream-pos/product/productlist-product" className="logo-small">
             <img src={SmallLogo} alt="" />
           </Link>
           <Link
